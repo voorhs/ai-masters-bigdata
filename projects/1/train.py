@@ -38,12 +38,15 @@ logging.info(f"TRAIN_PATH {train_path}")
 #
 # Read dataset
 #
+#fields = """doc_id,hotel_name,hotel_url,street,city,state,country,zip,class,price,
+#num_reviews,CLEANLINESS,ROOM,SERVICE,LOCATION,VALUE,COMFORT,overall_ratingsource""".replace("\n",'').split(",")
 
-df = pd.read_table(train_path, sep="\t", names=fields, index_col=True)
+read_table_opts = dict(sep="\t", names=fields, index_col=False)
+df = pd.read_table(train_path, **read_table_opts)
 
-# split train/test
+#split train/test
 X_train, X_test, y_train, y_test = train_test_split(
-    df.iloc[:,:-1], df.iloc[:,-1], test_size=0.33, random_state=42
+    df.drop(columns=['label']), df.label, test_size=0.33, random_state=42
 )
 
 #
@@ -51,10 +54,11 @@ X_train, X_test, y_train, y_test = train_test_split(
 #
 model.fit(X_train, y_train)
 
+logging.info(f"fit completed")
+
 model_score = model.score(X_test, y_test)
 
 logging.info(f"model score: {model_score:.3f}")
 
 # save the model
-dump(model, f"{proj_id}.joblib")
-
+dump(model, "{}.joblib".format(proj_id))

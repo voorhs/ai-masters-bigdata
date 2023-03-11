@@ -1,7 +1,9 @@
+#!/opt/conda/envs/dsenv/bin/python
+
 from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
+from sklearn.pipeline import make_pipeline
 from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.preprocessing import StandardScaler, OrdinalEncoder
 from sklearn.linear_model import LogisticRegression
 
 # Dataset fields
@@ -11,14 +13,12 @@ categorical_features = ["cf"+str(i) for i in range(1,27)] + ["day_number"]
 
 fields = ["id", "label"] + numeric_features + categorical_features
 
-numeric_transformer = Pipeline(steps=[
-    ('imputer', SimpleImputer(strategy='median')),
-    ('scaler', StandardScaler())
-])
-categorical_transformer = Pipeline(steps=[
-    ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),
-    ('encoder', LabelEncoder(handle_unknown='ignore'))
-])
+numeric_transformer = make_pipeline(
+    SimpleImputer(strategy='median'),
+    StandardScaler())
+categorical_transformer = make_pipeline(
+    SimpleImputer(strategy='constant', fill_value='missing'),
+    OrdinalEncoder())
 
 
 # We create the preprocessing pipelines for both numeric and categorical data.
@@ -26,13 +26,11 @@ categorical_transformer = Pipeline(steps=[
 preprocessor = ColumnTransformer(
     transformers=[
         ('num', numeric_transformer, numeric_features),
-        ('cat', categorical_transformer, categorical_features)
-    ]
-)
+        # ('cat', categorical_transformer, categorical_features)
+    ])
 
 # Now we have a full prediction pipeline.
-model = Pipeline(steps=[
-    ('preprocessor', preprocessor),
-    ('lin_model', LogisticRegression())
-])
+model = make_pipeline(
+    preprocessor,
+    LogisticRegression())
 
