@@ -1,4 +1,4 @@
 #!/bin/bash
 
-projects/$1/train.py 1 $@
+projects/$1/train.py $@
 
