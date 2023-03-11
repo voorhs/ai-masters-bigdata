@@ -5,6 +5,7 @@ import logging
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import log_loss
 from joblib import dump
 
 #
@@ -56,9 +57,9 @@ model.fit(X_train, y_train)
 
 logging.info(f"fit completed")
 
-model_score = model.score(X_test, y_test)
+model_score = log_loss(y_test, model.predict(X_test))
 
-logging.info(f"model score: {model_score:.3f}")
+logging.info(f"log_loss on validation: {model_score:.3f}")
 
 # save the model
 dump(model, "{}.joblib".format(proj_id))

@@ -26,7 +26,7 @@ categorical_transformer = make_pipeline(
 preprocessor = ColumnTransformer(
     transformers=[
         ('num', numeric_transformer, numeric_features),
-        # ('cat', categorical_transformer, categorical_features)
+        ('cat', 'drop', categorical_features)
     ])
 
 # Now we have a full prediction pipeline.
