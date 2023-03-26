@@ -25,7 +25,7 @@ categorical_transformer = make_pipeline(
 
 preprocessor = ColumnTransformer(
     transformers=[
-        ('num', numeric_transformer, numeric_features),
+        ('num', numeric_transformer, numeric_features[:1]),
         ('cat', 'drop', categorical_features)
     ])
 
