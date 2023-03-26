@@ -1,0 +1,5 @@
+INSERT
+    OVERWRITE DIRECTORY 'voorhs_hiveout'
+    ROW FORMAT DELIMITED
+    FIELDS TERMINATED BY '\t'
+    SELECT * FROM hw2_pred;
