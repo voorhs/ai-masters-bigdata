@@ -108,5 +108,6 @@ while True:
         break
 
 # save answer
+os.makedirs(sys.argv[4], exist_ok=True)
 with open(sys.argv[4] + '/answer.csv', 'w') as f:
     f.write(','.join([str(i) for i in path]))
