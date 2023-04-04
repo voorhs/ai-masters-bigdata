@@ -108,13 +108,13 @@ while True:
         break
 
 # save answer
-from pyspark.sql.types import StringType
+ans = (
+    collected_data
+        .where(collected_data.vertex == v_to)
+        .withColumn('last', F.lit(v_to))
+        .select(
+            F.concat_ws(',', F.concat("path", F.array("last"))).alias('path')
+        )
+)
 
-ans_schema = StructType([
-    StructField("path", ArrayType(IntegerType()), False),
-])
-
-path = collected_data.where(collected_data.vertex == v_to).first()['path'] + [v_to]
-ans_df = spark.createDataFrame(data=[[path]], schema=ans_schema)
-ans_df = ans_df.withColumn('ppath', F.concat_ws(',', ans_df['path']))
-ans_df.select('ppath').write.text(sys.argv[4])
+ans.select('path').write.text(sys.argv[4])
