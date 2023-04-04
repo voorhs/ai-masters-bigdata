@@ -117,4 +117,4 @@ ans_schema = StructType([
 path = collected_data.where(collected_data.vertex == v_to).first()['path'] + [v_to]
 ans_df = spark.createDataFrame(data=[[path]], schema=ans_schema)
 ans_df = ans_df.withColumn('ppath', F.concat_ws(',', ans_df['path']))
-ans_df.select('ppath').write.text(sys.argv[4] + '/answer.csv')
+ans_df.select('ppath').write.text(sys.argv[4])
