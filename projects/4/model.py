@@ -6,6 +6,7 @@ from pyspark.ml import Transformer
 from pyspark.ml.param.shared import HasInputCol, HasOutputCol, Param, Params, TypeConverters
 from pyspark.ml.util import DefaultParamsReadable, DefaultParamsWritable
 from pyspark.ml.regression import LinearRegression
+import pyspark.sql.functions as f
 
 class RemoveNonLatin(Transformer, HasInputCol, HasOutputCol, DefaultParamsReadable, DefaultParamsWritable):
   input_col = Param(Params._dummy(), "input_col", "input column name.", typeConverter=TypeConverters.toString)
