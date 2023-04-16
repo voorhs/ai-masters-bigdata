@@ -5,6 +5,7 @@ from pyspark import keyword_only
 from pyspark.ml import Transformer
 from pyspark.ml.param.shared import HasInputCol, HasOutputCol, Param, Params, TypeConverters
 from pyspark.ml.util import DefaultParamsReadable, DefaultParamsWritable
+from pyspark.ml.regression import LinearRegression
 
 class RemoveNonLatin(Transformer, HasInputCol, HasOutputCol, DefaultParamsReadable, DefaultParamsWritable):
   input_col = Param(Params._dummy(), "input_col", "input column name.", typeConverter=TypeConverters.toString)
@@ -61,6 +62,7 @@ reg = LinearRegression(featuresCol='features', labelCol='overall', predictionCol
 # the goal of this file
 pipeline = Pipeline(stages=[
     rem_non_latin_rev,
+    from pyspark.ml.regression import LinearRegression
     rem_non_latin_sum,
     review_tokenizer,
     summary_tokenizer,
