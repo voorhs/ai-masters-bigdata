@@ -62,7 +62,6 @@ reg = LinearRegression(featuresCol='features', labelCol='overall', predictionCol
 # the goal of this file
 pipeline = Pipeline(stages=[
     rem_non_latin_rev,
-    from pyspark.ml.regression import LinearRegression
     rem_non_latin_sum,
     review_tokenizer,
     summary_tokenizer,
