@@ -21,6 +21,8 @@ spark.sparkContext.setLogLevel('WARN')
 from model import pipeline
 
 # load data
+from pyspark.sql.types import StructType, StructField, FloatType, IntegerType, BooleanType, DateType, StringType
+
 fields = [
     StructField("overall", FloatType()),
     StructField("vote", StringType()),  # needs conversion

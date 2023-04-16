@@ -27,6 +27,8 @@ from pyspark.ml import Pipeline, PipelineModel
 reg_model = PipelineModel.load(MODEL_PATH)
 
 # load data
+from pyspark.sql.types import StructType, StructField, FloatType, IntegerType, BooleanType, DateType, StringType
+
 def read(path, schema):
     to_drop = ['reviewTime', 'reviewerID', 'asin', 'reviewerName', 'unixReviewTime']
     
