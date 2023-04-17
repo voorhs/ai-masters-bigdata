@@ -60,5 +60,5 @@ test_schema = StructType(fields)
 test = read(TESTDATA_PATH, test_schema)
 
 # make predictions
-predictions = model.transform(test)
+predictions = reg_model.transform(test)
 predictions.select('prediction').write.text(PREDDATA_PATH)
