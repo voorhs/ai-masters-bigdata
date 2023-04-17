@@ -35,7 +35,7 @@ rem_non_latin_rev = RemoveNonLatin(input_col='reviewText', output_col='review_te
 rem_non_latin_sum = RemoveNonLatin(input_col='summary', output_col='summary_')
 
 # split by whitespace
-review_tokenizer = Tokenizer(inputCol='review_text', outputCol='reviewTokens')
+review_tokenizer = Tokenizer(inputCol='reviewText', outputCol='reviewTokens')
 summary_tokenizer = Tokenizer(inputCol='summary_', outputCol='summaryTokens')
 
 # remove english stopwords
@@ -48,27 +48,27 @@ stop_words_rem = StopWordsRemover(
 
 # vectirize using hash trick
 review_vectorizer = HashingTF(
-    numFeatures=100, inputCol='reviewTokensClean', outputCol='reviewVec'
+    numFeatures=100, inputCol='reviewTokens', outputCol='reviewVec'
 )
 summary_vectorizer = HashingTF(
     numFeatures=30, inputCol='summaryTokensClean', outputCol='summaryVec'
 )
 
 # assemble into one column
-asm = VectorAssembler(inputCols=['reviewVec', 'summaryVec', 'vote', 'verified'], outputCol='features')
+asm = VectorAssembler(inputCols=['reviewVec', 'vote', 'verified'], outputCol='features')
 
 # simple regression model
 reg = LinearRegression(featuresCol='features', labelCol='overall', predictionCol='prediction')
 
 # the goal of this file
 pipeline = Pipeline(stages=[
-    rem_non_latin_rev,
-    rem_non_latin_sum,
+    # rem_non_latin_rev,
+    # rem_non_latin_sum,
     review_tokenizer,
-    summary_tokenizer,
-    stop_words_rem,
+    # summary_tokenizer,
+    # stop_words_rem,
     review_vectorizer,
-    summary_vectorizer,
+    # summary_vectorizer,
     asm,
     reg
 ])
