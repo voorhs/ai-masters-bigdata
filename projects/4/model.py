@@ -48,14 +48,14 @@ stop_words_rem = StopWordsRemover(
 
 # vectirize using hash trick
 review_vectorizer = HashingTF(
-    numFeatures=100, inputCol='reviewTokens', outputCol='reviewVec'
+    numFeatures=50, inputCol='reviewTokens', outputCol='reviewVec'
 )
 summary_vectorizer = HashingTF(
     numFeatures=30, inputCol='summaryTokensClean', outputCol='summaryVec'
 )
 
 # assemble into one column
-asm = VectorAssembler(inputCols=['reviewVec', 'vote', 'verified'], outputCol='features')
+asm = VectorAssembler(inputCols=['reviewVec'], outputCol='features')
 
 # simple regression model
 reg = LinearRegression(featuresCol='features', labelCol='overall', predictionCol='prediction')
