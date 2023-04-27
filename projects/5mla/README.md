@@ -36,8 +36,9 @@ mlflow server \
 
 Запустить в новом окне терминала (из папки проекта `5mla`):
 ```bash
-cd ai-masters-bigdata/projects/5mla/
+conda activate dsenv
 export MLFLOW_TRACKING_URI=http://localhost:6047
+cd ai-masters-bigdata/projects/5mla/
 mlflow run . -P train_path=/home/users/datasets/criteo/criteo_train1 -P tol=0.1
 ```
 
@@ -45,6 +46,5 @@ mlflow run . -P train_path=/home/users/datasets/criteo/criteo_train1 -P tol=0.1
 
 Запустить в новом окне терминала (из папки проекта `5mla`):
 ```bash
-mlflow models serve -p 7047 -m ai-masters-bigdata/projects/5mla/mlruns/0/c66b7486b1774c0c9c99a0d504321418/artifacts/model
+mlflow models serve -p 7047 -m ./mlruns/0/2183865bad9a407c8deca7496a0945d6/artifacts/model
 ```
-

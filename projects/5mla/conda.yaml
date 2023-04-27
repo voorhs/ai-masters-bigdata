@@ -7,4 +7,5 @@ dependencies:
   - mlflow
   - cloudpickle==2.2.1
   - scikit-learn==1.0.2
+  - psutil==5.9.0
 name: mlflow-env
