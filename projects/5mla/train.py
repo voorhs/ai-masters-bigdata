@@ -87,6 +87,6 @@ model_score = log_loss(y_test, model.predict(X_test))
 
 print(f"log_loss on validation: {model_score:.3f}")
 
-mlflow.sklearn.log_model(model, artifact_path="model")
+mlflow.sklearn.log_model(model, artifact_path='model')
 mlflow.log_metric("log_loss", model_score)
 mlflow.log_param("model_param1", float(sys.argv[2]))
