@@ -1,0 +1,6 @@
+entry_points:
+  main:
+    parameters:
+      train_path: {type: string, default: '/home/users/datasets/criteo/criteo_train1'}
+      tol: {type: float, default: 0.001}
+    command: "python train.py {train_path} {tol}"
