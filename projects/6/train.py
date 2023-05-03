@@ -20,7 +20,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 model = make_pipeline(
     CountVectorizer(max_features=2000),
-    LogisticRegression(tolmax_iter=1000)
+    LogisticRegression(max_iter=1000)
 )
 
 # ======= load data and train =======
