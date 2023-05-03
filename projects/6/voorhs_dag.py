@@ -6,8 +6,7 @@ from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOpe
 
 from airflow import DAG
 from airflow.sensors.filesystem import FileSensor
-from datetime import datetime
-
+import pendulum
 
 TRAIN_PATH="/datasets/amazon/all_reviews_5_core_train_extra_small_sentiment.json"
 TRAIN_PATH_OUT="voorhs_train_out"
@@ -30,7 +29,7 @@ with DAG(
     default_args={'retries': 2},
     description='hw6',
     schedule_interval=None,
-    start_date=datetime.today().strftime('%Y-%m-%d'),
+    start_date=datetime.today(),
     catchup=False
 ) as dag:
 
