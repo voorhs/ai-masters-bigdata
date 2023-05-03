@@ -25,7 +25,7 @@ dsenv="/opt/conda/envs/dsenv/bin/python"
 SPARK_BINARY="/usr/bin/spark3-submit"
 
 with DAG(
-    'voorhs',
+    task_id='voorhs_dag',
     default_args={'retries': 2},
     description='hw6',
     schedule_interval=None,
