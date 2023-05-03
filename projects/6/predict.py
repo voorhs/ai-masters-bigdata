@@ -37,7 +37,7 @@ args = ap.parse_args()
 
 # ======= load data =======
 
-df = spark.read.json(args['test-in'])
+df = spark.read.json(args.test_in)
 
 # ======= load model ======
 
