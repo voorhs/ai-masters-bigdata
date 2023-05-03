@@ -47,7 +47,7 @@ from joblib import load
 model = load(args.model)
 
 # ======= make predictions =======
-import pyspark.sql.functions as f
+import pyspark.sql.functions as F
 
 @F.pandas_udf('double')
 def predict_pandas_udf(*cols):
