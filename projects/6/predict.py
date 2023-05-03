@@ -54,7 +54,7 @@ def predict_pandas_udf(*cols):
     X = cols[0]
     return pd.Series(model.predict_proba(X)[:, 1])
 
-preds = test.select(
+preds = df.select(
     'id',
     predict_pandas_udf('reviewText').alias('prediction')
 )
