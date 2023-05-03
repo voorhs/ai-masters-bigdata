@@ -6,7 +6,7 @@ from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOpe
 
 from airflow import DAG
 from airflow.sensors.filesystem import FileSensor
-import pendulum
+from datetime import datetime
 
 TRAIN_PATH="/datasets/amazon/all_reviews_5_core_train_extra_small_sentiment.json"
 TRAIN_PATH_OUT="voorhs_train_out"
