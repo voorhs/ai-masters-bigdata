@@ -23,10 +23,10 @@ import argparse
 ap = argparse.ArgumentParser()
 
 # Add the arguments to the parser
-ap.add_argument("--test-in", required=True)
-ap.add_argument("--pred-out", required=True)
-ap.add_argument("--sklearn-model-in", required=True)
-args = vars(ap.parse_args())
+ap.add_argument("--test-in", dest='test_in', required=True)
+ap.add_argument("--pred-out", dest='pred_out', required=True)
+ap.add_argument("--sklearn-model-in", dest='model', required=True)
+args = ap.parse_args()
 
 # ======= load data =======
 
@@ -37,7 +37,7 @@ df = spark.read.json(args['test-in'])
 from joblib import load
 
 
-model = load(args['sklearn-model-in'])
+model = load(args.model)
 
 # ======= make predictions =======
 
@@ -53,4 +53,4 @@ preds = test.select(
 
 # ====== save predictions =======
 
-preds.write.csv(args['pred-out'])
+preds.write.csv(args.pred_out)

@@ -23,9 +23,9 @@ import argparse
 ap = argparse.ArgumentParser()
 
 # Add the arguments to the parser
-ap.add_argument("--path-in", required=True)
-ap.add_argument("--path-out", required=True)
-args = vars(ap.parse_args())
+ap.add_argument("--path-in", dest='path_in', required=True)
+ap.add_argument("--path-out", dest='path_out', required=True)
+args = ap.parse_args()
 
 # ====== load data, process and save ======
 
@@ -41,5 +41,5 @@ def read(path):
                 .drop(*to_drop)\
                 .fillna({'reviewText': 'missingReview'})
 
-df = read(args['path-in'])
-df.write.mode('overwrite').json(args['path-out'])
+df = read(args.path_in)
+df.write.mode('overwrite').json(args.path_out)

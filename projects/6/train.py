@@ -7,9 +7,9 @@ import argparse
 ap = argparse.ArgumentParser()
 
 # Add the arguments to the parser
-ap.add_argument("--train-in", required=True)
-ap.add_argument("--sklearn-model-out", required=True)
-args = vars(ap.parse_args())
+ap.add_argument("--train-in", dest='train_in', required=True)
+ap.add_argument("--sklearn-model-out", dest='model', required=True)
+args = ap.parse_args()
 
 # ====== define model ======
 
@@ -29,7 +29,7 @@ import pandas as pd
 
 
 # lines=True
-train = pd.read_json(args['train-in'])
+train = pd.read_json(args.train_in)
 model.fit(train['reviewText'], train['label'].astype(int))
 
 # ======= save model =======
@@ -37,4 +37,4 @@ model.fit(train['reviewText'], train['label'].astype(int))
 from joblib import dump
 
 
-dump(model, args['sklearn-model-out'])
+dump(model, args.model)
