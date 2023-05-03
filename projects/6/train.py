@@ -28,8 +28,7 @@ model = make_pipeline(
 import pandas as pd
 
 
-# lines=True
-train = pd.read_json(args.train_in)
+train = pd.read_json(args.train_in, lines=True)
 model.fit(train['reviewText'], train['label'].astype(int))
 
 # ======= save model =======
