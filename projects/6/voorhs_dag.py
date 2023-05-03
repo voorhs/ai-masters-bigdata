@@ -10,13 +10,13 @@ from datetime import datetime
 
 
 TRAIN_PATH="/datasets/amazon/all_reviews_5_core_train_extra_small_sentiment.json"
-TRAIN_PATH_OUT="processed_train"
+TRAIN_PATH_OUT="voorhs_train_out"
 
 TEST_PATH="/datasets/amazon/all_reviews_5_core_test_extra_small_features.json"
-TEST_PATH_OUT="processed_test"
+TEST_PATH_OUT="voorhs_test_out"
 
-PRED_OUT="predictions"
-MODEL_OUT="model.joblib"
+PRED_OUT="voorhs_hw6_prediction"
+MODEL_OUT="6.joblib"
 
 DATA_PROCESSING = "data_processing.py"
 PREDICT = "predict.py"
@@ -45,12 +45,12 @@ with DAG(
 
     download_train_task = BashOperator(
       task_id='download_train_task',
-      bash_command = f'hdfs dfs -getmerge {TRAIN_PATH_OUT} {base_dir}/{TRAIN_PATH_OUT}.json'
+      bash_command = f'hdfs dfs -getmerge {TRAIN_PATH_OUT} {base_dir}/{TRAIN_PATH_OUT}_local'
     )
 
     train_task = BashOperator(
       task_id='train_task',
-      bash_command=f'{dsenv} {base_dir}/{TRAIN} --train-in {base_dir}/{TRAIN_PATH_OUT}.json --sklearn-model-out {base_dir}/{MODEL_OUT}',
+      bash_command=f'{dsenv} {base_dir}/{TRAIN} --train-in {base_dir}/{TRAIN_PATH_OUT}_local --sklearn-model-out {base_dir}/{MODEL_OUT}',
     )
     
     model_sensor = FileSensor(
@@ -76,5 +76,4 @@ with DAG(
           env_vars={"PYSPARK_PYTHON": dsenv}
     )
  
-
     feature_eng_train_task >> download_train_task >> train_task >> model_sensor >> feature_eng_test_task >> predict_task
