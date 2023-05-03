@@ -63,4 +63,4 @@ preds = df.select(
 
 # ====== save predictions =======
 
-preds.write.csv(args.pred_out)
+preds.write.mode('overwrite').csv(args.pred_out)
