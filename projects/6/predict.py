@@ -54,7 +54,7 @@ import pandas as pd
 @F.pandas_udf('double')
 def predict_pandas_udf(*cols):
     X = cols[0]
-    return pd.Series(model.predict_proba(X)[:, 1])
+    return pd.Series(model.predict(X)[:, 1])
 
 preds = df.select(
     'id',

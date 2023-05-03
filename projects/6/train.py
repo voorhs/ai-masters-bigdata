@@ -15,12 +15,12 @@ args = ap.parse_args()
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
-from sklearn.feature_extraction.text import HashingVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 
 
 model = make_pipeline(
-    HashingVectorizer(n_features=int(1e5)),
-    LogisticRegression(tol=0.1)
+    CountVectorizer(max_features=2000),
+    LogisticRegression(tolmax_iter=1000)
 )
 
 # ======= load data and train =======
