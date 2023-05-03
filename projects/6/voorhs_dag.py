@@ -26,7 +26,7 @@ SPARK_BINARY="/usr/bin/spark3-submit"
 
 with DAG(
     'voorhs_dag',
-    default_args={'retries': 1},
+    default_args={'retries': 0},
     description='hw6',
     schedule_interval=None,
     start_date=datetime.today(),

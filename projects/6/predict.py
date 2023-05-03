@@ -48,6 +48,8 @@ model = load(args.model)
 
 # ======= make predictions =======
 import pyspark.sql.functions as F
+import pandas as pd
+
 
 @F.pandas_udf('double')
 def predict_pandas_udf(*cols):
