@@ -68,7 +68,7 @@ with DAG(
 
     predict_task = SparkSubmitOperator(
           application=f"{base_dir}/{PREDICT}",
-          application_args=["--test-in", TEST_PATH_OUT, "--pred-out", PRED_OUT, "--sklearn-model-in", MODEL],
+          application_args=["--test-in", TEST_PATH_OUT, "--pred-out", PRED_OUT, "--sklearn-model-in", f'{base_dir}/{MODEL}'],
           task_id="predict_task",
           spark_binary=SPARK_BINARY,
           files=f'{base_dir}/{MODEL}',
