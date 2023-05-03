@@ -15,7 +15,7 @@ TEST_PATH="/datasets/amazon/all_reviews_5_core_test_extra_small_features.json"
 TEST_PATH_OUT="voorhs_test_out"
 
 PRED_OUT="voorhs_hw6_prediction"
-MODEL_OUT="6.joblib"
+MODEL="6.joblib"
 
 DATA_PROCESSING = "data_processing.py"
 PREDICT = "predict.py"
@@ -49,12 +49,12 @@ with DAG(
 
     train_task = BashOperator(
       task_id='train_task',
-      bash_command=f'{dsenv} {base_dir}/{TRAIN} --train-in {base_dir}/{TRAIN_PATH_OUT}_local --sklearn-model-out {base_dir}/{MODEL_OUT}',
+      bash_command=f'{dsenv} {base_dir}/{TRAIN} --train-in {base_dir}/{TRAIN_PATH_OUT}_local --sklearn-model-out {base_dir}/{MODEL}',
     )
     
     model_sensor = FileSensor(
       task_id='model_sensor',
-      filepath=f"{base_dir}/{MODEL_OUT}",
+      filepath=f"{base_dir}/{MODEL}",
       poke_interval=20,
       timeout=20*20,
     )
@@ -68,10 +68,10 @@ with DAG(
 
     predict_task = SparkSubmitOperator(
           application=f"{base_dir}/{PREDICT}",
-          application_args=["--test-in", TEST_PATH_OUT, "--pred-out", PRED_OUT, "--sklearn-model-in", MODEL_OUT],
+          application_args=["--test-in", TEST_PATH_OUT, "--pred-out", PRED_OUT, "--sklearn-model-in", MODEL],
           task_id="predict_task",
           spark_binary=SPARK_BINARY,
-          files=f'{base_dir}/{MODEL_OUT}',
+          files=f'{base_dir}/{MODEL}',
           env_vars={"PYSPARK_PYTHON": dsenv}
     )
  
